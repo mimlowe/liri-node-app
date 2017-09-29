@@ -5,7 +5,7 @@ let Spotify = require('node-spotify-api');
 let request = require('request');
 
 // ============= TWITTER =============== //
-function getTweets(user='ucb_bootcamp_li') {
+function getTweets(user='ucb_bootcamp_li', limit=20) {
   let client = new Twitter({
     consumer_key: keys.twitterKeys.consumer_key,
     consumer_secret: keys.twitterKeys.consumer_secret,
@@ -13,7 +13,7 @@ function getTweets(user='ucb_bootcamp_li') {
     access_token_secret: keys.twitterKeys.access_token_secret,
   });
 
-   let params = {screen_name: user};
+   let params = {screen_name: user, count:limit};
    client.get('statuses/user_timeline', params, function(error, tweets, response) {
       for (var t in tweets) {
         console.log(colors.blue("[",tweets[t].created_at,"]: ") +
@@ -23,7 +23,7 @@ function getTweets(user='ucb_bootcamp_li') {
 }
 
 // ============= SPOTIFY ============ //
-function lookupSong(song='The Sign Ace of Base', count='1') {
+function lookupSong(song='The Sign Ace of Base', count='5') {
   var spotify = new Spotify({
     id: keys.spotifyKeys.id,
     secret: keys.spotifyKeys.secret
